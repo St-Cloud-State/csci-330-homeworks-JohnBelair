@@ -1,0 +1,41 @@
+Script started on 2025-01-25 19:47:58+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="311" LINES="23"]
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork1 [0;36m([1;31mmain[0;36m) [0m$ sbcl
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+* (defvar lista)
+
+LISTA
+* (setq lista (cons 'a (cons 'b (cons 'x (cons 'd '())))))
+
+(A B X D)
+* (car(cdr(cdr lista)))
+
+X
+* (defvar listb)
+
+LISTB
+* (setq listb (cons 'a (cons (cons 'b (cons (cons 'x (cons 'd nil)) nil)) nil)))
+
+(A (B (X D)))
+* (car(car(cdr(car(cdr listb)))))
+
+X
+* (defvar listc)
+
+LISTC
+* (setq listc (cons (cons (cons 'a (cons (cons 'b (cons (cons 'x nil) (cons 'd nil))) nil)) nil) nil))
+
+(((A (B (X) D))))
+* (car(car(cdr(car(cdr (car (car listc)))))))
+
+X
+* (exit)
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork1 [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-01-25 19:49:54+00:00 [COMMAND_EXIT_CODE="0"]

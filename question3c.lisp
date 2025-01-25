@@ -1,0 +1,1 @@
+(car(car(cdr(car(cdr (car (car listc)))))))
