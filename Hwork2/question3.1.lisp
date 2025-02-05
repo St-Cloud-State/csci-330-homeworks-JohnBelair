@@ -1,0 +1,1 @@
+(NOT (EQUAL 3 (ABS -3)))
