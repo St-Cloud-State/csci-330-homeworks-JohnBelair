@@ -1,0 +1,11 @@
+# install compiler
+sudo apt update && sudo apt install g++
+
+# change directory
+cd /workspaces/csci-330-homeworks-JohnBelair/Hwork3
+
+# compile the code
+g++ -o question1 question1.cpp
+
+# run the code
+./question1

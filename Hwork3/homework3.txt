@@ -1,0 +1,153 @@
+Script started on 2025-02-17 21:20:32+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="311" LINES="23"]
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair [0;36m([1;31mmain[0;36m) [0m$ cd /workspaces/csci-330-homeworks-JohnBelair/Hwork3
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ g++ -o question1 question1.cpp
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ ./question1
+Sorted array: 1 1 2 3 4 5 6 7 7 8 9 
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ sbcl
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+* (defun recursive-merge (left right)
+  (cond
+    ; returns the right list if the left is empty and the left list if the right is empty
+    ((null left) right)  
+    ((null right) left) 
+    ; If the first element on the left is smaller we recursively merge the rest
+    ((< (car left) (car right))
+     (cons (car left) (recursive-merge (cdr left) right)))
+     ; Otherwise, the first element of right is smaller we recursively merge the rest
+    (t
+     (cons (car right) (recursive-merge left (cdr right))))))
+
+RECURSIVE-MERGE
+* (defun merge-sort (lst)
+; Base case: empty or single-element list
+  (if (or (null lst) (null (cdr lst)))
+      lst
+      ; Find the middle list
+      (let* ((mid (floor (length lst) 2))
+      ; Take the left half of the list
+             (left (subseq lst 0 mid))
+      ; Take the right half of the list
+             (right (subseq lst mid)))
+      ; Recursively merge the sorted halves 
+        (recursive-merge (merge-sort left) (merge-sort right))))) 
+
+MERGE-SORT
+* (setq my-list '(1 7 2 1 8 6 5 3 7 9 4))
+; in: SETQ MY-LIST
+;     (SETQ MY-LIST '(1 7 2 1 8 6 5 3 7 9 4))
+; 
+; caught WARNING:
+;   undefined variable: MY-LIST
+; 
+; compilation unit finished
+;   Undefined variable:
+;     MY-LIST
+;   caught 1 WARNING condition
+
+(1 7 2 1 8 6 5 3 7 9 4)
+* (merge-sort my-list)
+
+(1 1 2 3 4 5 6 7 7 8 9)
+* ;Merge two sorted lists
+(defun recursive-merge (left right)
+  (cond
+    ; returns the right list if the left is empty and the left list if the right is empty
+    ((null left) right)  
+    ((null right) left) 
+    ; If the first element on the left is smaller we recursively merge the rest
+    ((< (car left) (car right))
+     (cons (car left) (recursive-merge (cdr left) right)))
+     ; Otherwise, the first element of right is smaller we recursively merge the rest
+    (t
+     (cons (car right) (recursive-merge left (cdr right))))))
+WARNING: redefining COMMON-LISP-USER::RECURSIVE-MERGE in DEFUN
+
+RECURSIVE-MERGE
+* ; Partition the list into sorted pairs
+(defun partition (lst)
+; Base case: empty or single-element list
+  (if (null lst)
+      nil
+      (if (null (cdr lst))
+          (list (list (car lst)))
+          ; Compares two items in a list
+          (let ((first (car lst))
+                (second (car (cdr lst))))
+            ; If first <= second then order is maintained
+            ; Else the items are swaped and a list "second first" is created
+            (cons (if (<= first second)
+                      (list first second) 
+                      (list second first))
+                  (partition (cddr lst)))))))
+
+PARTITION
+* ; Merge pairs recursively
+(defun recursive-merge-pairs (lst)
+; Base case: empty or single-element list
+  (if (null lst)
+      nil
+      (if (null (cdr lst))
+          (list (car lst))
+        ; Recursivly merge pairs 
+          (cons (recursive-merge (car lst) (car (cdr lst)))
+                (recursive-merge-pairs (cddr lst))))))
+
+RECURSIVE-MERGE-PAIRS
+* ; Bottom-up merge sort
+(defun bottom-up-recursive-mergesort (lst)
+   ; Partition list into pairs
+  (let ((pairs (partition lst)))
+    ; Loop merging until one list left
+    (loop until (= (length pairs) 1)
+          do (setq pairs (recursive-merge-pairs pairs)))
+    ; Return the list
+    (car pairs)))
+
+BOTTOM-UP-RECURSIVE-MERGESORT
+* (bottom-up-recursive-mergesort my-list)
+
+(1 1 2 3 4 5 6 7 7 8 9)
+* (defun insertion-sort (list)
+  ; Base case: If the list is empty, return nil
+  (if (null list) 
+      nil
+      ; Recursively sorts the rest of the list
+      (let ((sorted (insertion-sort (cdr list))))
+        ; Inserts the first element into the list
+        (insert (car list) sorted))))  
+; in: DEFUN INSERTION-SORT
+;     (INSERT (CAR LIST) SORTED)
+; 
+; caught STYLE-WARNING:
+;   undefined function: INSERT
+; 
+; compilation unit finished
+;   Undefined function:
+;     INSERT
+;   caught 1 STYLE-WARNING condition
+
+INSERTION-SORT
+* (defun insert (item list)
+  (cond
+    ; If the list is empty it returns the list
+    ((null list) (list item))
+    ;If element is smaller or equal to the first element then it is inserted at the begining of the list
+    ((<= item (car list)) (cons item list))  ;
+    ;Else the rest of the list is recursively inserted.
+    (t (cons (car list) (insert item (cdr list))))))
+
+INSERT
+* (insertion-sort my-list)
+
+(1 1 2 3 4 5 6 7 7 8 9)
+* (exit)
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-02-17 21:23:10+00:00 [COMMAND_EXIT_CODE="0"]
