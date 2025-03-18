@@ -1,0 +1,8 @@
+I -> iESI' works
+I' -> eS | ε
+E -> GE' works
+E' -> oGE' | ε
+G -> x|y|z|w works
+S → s | dLb works
+L → s L' works
+L' → L | ε
