@@ -1,0 +1,451 @@
+Script started on 2025-03-19 01:27:20+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="311" LINES="23"]
+[0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair [0;36m([1;31mmain[0;36m) [0m$ sbcl
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+* (defun Ifn (str)
+    (print '(in Ifn))
+    (print str)
+    (cond 
+        ((eql (car str)  'i) (IPfn (Sfn (Efn (cdr str )))))
+        (t (append (cdr str)(list 'err)))))
+; in: DEFUN IFN
+;     (EFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: EFN
+
+;     (IPFN (SFN (EFN (CDR STR))))
+; 
+; caught STYLE-WARNING:
+;   undefined function: IPFN
+
+;     (SFN (EFN (CDR STR)))
+; 
+; caught STYLE-WARNING:
+;   undefined function: SFN
+; 
+; compilation unit finished
+;   Undefined functions:
+;     EFN IPFN SFN
+;   caught 3 STYLE-WARNING conditions
+
+IFN
+* (defun IPfn (str)
+    (print '(in IPfn))
+    (print str)
+    (cond 
+        ((eql (car str)  'e) (Sfn (cdr str )))))
+; in: DEFUN IPFN
+;     (SFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: SFN
+; 
+; compilation unit finished
+;   Undefined function:
+;     SFN
+;   caught 1 STYLE-WARNING condition
+
+IPFN
+* (defun Efn (str)
+    (print '(in Efn))
+    (print str)
+    (cond 
+        ((Gfn (cdr str )) (EPfn (cdr str )))
+        (t (append str (list 'err)))))
+; in: DEFUN EFN
+;     (EPFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: EPFN
+
+;     (GFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: GFN
+; 
+; compilation unit finished
+;   Undefined functions:
+;     EPFN GFN
+;   caught 2 STYLE-WARNING conditions
+
+EFN
+* (defun EPfn (str)
+    (print '(in EPfn))
+    (print str)
+    (cond 
+        ((and str (not (null str)) (eql (car str) 'o))
+         (let ((rest (Gfn (cdr str))))
+           (if (and rest (not (null rest)))
+               (EPfn rest))))
+        (t str)))
+; in: DEFUN EPFN
+;     (GFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: GFN
+; 
+; compilation unit finished
+;   Undefined function:
+;     GFN
+;   caught 1 STYLE-WARNING condition
+
+EPFN
+* (defun Gfn (str)
+    (print '(in Gfn))
+    (print str)
+    (cond 
+        ((eql (car str) 'x) (cdr str))  
+        ((eql (car str) 'y) (cdr str))
+        ((eql (car str) 'z) (cdr str))
+        ((eql (car str) 'w) (cdr str))
+        (t (append str (list 'err)))))
+
+GFN
+* (defun Sfn (str)
+    (print '(in Sfn))
+    (print str)
+    (cond 
+        ((eql (car str) 's) (cdr str))
+        ((eql (car str) 'd) (let ((str (Lfn (cdr str))))
+            (print '(in Sfn))
+            (print str)
+            (if (and str (eql (car str) 'b))
+                (cdr str)
+                (append str (list 'err)))))
+        (t (append str (list 'err)))))
+; in: DEFUN SFN
+;     (LFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: LFN
+; 
+; compilation unit finished
+;   Undefined function:
+;     LFN
+;   caught 1 STYLE-WARNING condition
+
+SFN
+* (defun Lfn (str)
+    (print '(in Lfn))
+    (print str)
+    (cond 
+        ((eql (car str) 's) (cdr str) (LPfn (cdr str)))
+        (t (append str (list 'err)))))
+; in: DEFUN LFN
+;     (LPFN (CDR STR))
+; 
+; caught STYLE-WARNING:
+;   undefined function: LPFN
+; 
+; compilation unit finished
+;   Undefined function:
+;     LPFN
+;   caught 1 STYLE-WARNING condition
+
+LFN
+* (defun LPfn (str)
+    (print '(in LPfn))
+    (print str)
+    (cond 
+        ((and str (not (null str)) (eql (car str) 's)) (Lfn str))
+        (t str)))
+
+LPFN
+* (Ifn '(i x o y o w d s s b e s))
+
+(IN IFN) 
+(I X O Y O W D S S B E S) 
+(IN EFN) 
+(X O Y O W D S S B E S) 
+(IN GFN) 
+(O Y O W D S S B E S) 
+(IN EPFN) 
+(O Y O W D S S B E S) 
+(IN GFN) 
+(Y O W D S S B E S) 
+(IN EPFN) 
+(O W D S S B E S) 
+(IN GFN) 
+(W D S S B E S) 
+(IN EPFN) 
+(D S S B E S) 
+(IN SFN) 
+(D S S B E S) 
+(IN LFN) 
+(S S B E S) 
+(IN LPFN) 
+(S B E S) 
+(IN LFN) 
+(S B E S) 
+(IN LPFN) 
+(B E S) 
+(IN SFN) 
+(B E S) 
+(IN IPFN) 
+(E S) 
+(IN SFN) 
+(S) 
+NIL
+* (Ifn '(i x o o y w d s s b e s))
+
+(IN IFN) 
+(I X O O Y W D S S B E S) 
+(IN EFN) 
+(X O O Y W D S S B E S) 
+(IN GFN) 
+(O O Y W D S S B E S) 
+(IN EPFN) 
+(O O Y W D S S B E S) 
+(IN GFN) 
+(O Y W D S S B E S) 
+(IN EPFN) 
+(O Y W D S S B E S ERR) 
+(IN GFN) 
+(Y W D S S B E S ERR) 
+(IN EPFN) 
+(W D S S B E S ERR) 
+(IN SFN) 
+(W D S S B E S ERR) 
+(IN IPFN) 
+(W D S S B E S ERR ERR) 
+NIL
+* (Ifn '(i x o y s))
+
+(IN IFN) 
+(I X O Y S) 
+(IN EFN) 
+(X O Y S) 
+(IN GFN) 
+(O Y S) 
+(IN EPFN) 
+(O Y S) 
+(IN GFN) 
+(Y S) 
+(IN EPFN) 
+(S) 
+(IN SFN) 
+(S) 
+(IN IPFN) 
+NIL 
+NIL
+* (" ' ifn     Ifn '(i x y o s))
+
+(IN IFN) 
+(I X Y O S) 
+(IN EFN) 
+(X Y O S) 
+(IN GFN) 
+(Y O S) 
+(IN EPFN) 
+(Y O S) 
+(IN SFN) 
+(Y O S) 
+(IN IPFN) 
+(Y O S ERR) 
+NIL
+* (Ifn '(i w o z s))
+
+(IN IFN) 
+(I W O Z S) 
+(IN EFN) 
+(W O Z S) 
+(IN GFN) 
+(O Z S) 
+(IN EPFN) 
+(O Z S) 
+(IN GFN) 
+(Z S) 
+(IN EPFN) 
+(S) 
+(IN SFN) 
+(S) 
+(IN IPFN) 
+NIL 
+NIL
+* (Ifn '(i w o s z))
+
+(IN IFN) 
+(I W O S Z) 
+(IN EFN) 
+(W O S Z) 
+(IN GFN) 
+(O S Z) 
+(IN EPFN) 
+(O S Z) 
+(IN GFN) 
+(S Z) 
+(IN EPFN) 
+(S Z ERR) 
+(IN SFN) 
+(S Z ERR) 
+(IN IPFN) 
+(Z ERR) 
+NIL
+* (Ifn '(i z o w d s b e s))
+
+(IN IFN) 
+(I Z O W D S B E S) 
+(IN EFN) 
+(Z O W D S B E S) 
+(IN GFN) 
+(O W D S B E S) 
+(IN EPFN) 
+(O W D S B E S) 
+(IN GFN) 
+(W D S B E S) 
+(IN EPFN) 
+(D S B E S) 
+(IN SFN) 
+(D S B E S) 
+(IN LFN) 
+(S B E S) 
+(IN LPFN) 
+(B E S) 
+(IN SFN) 
+(B E S) 
+(IN IPFN) 
+(E S) 
+(IN SFN) 
+(S) 
+NIL
+* (Ifn '(i z o w d b e s s))
+
+(IN IFN) 
+(I Z O W D B E S S) 
+(IN EFN) 
+(Z O W D B E S S) 
+(IN GFN) 
+(O W D B E S S) 
+(IN EPFN) 
+(O W D B E S S) 
+(IN GFN) 
+(W D B E S S) 
+(IN EPFN) 
+(D B E S S) 
+(IN SFN) 
+(D B E S S) 
+(IN LFN) 
+(B E S S) 
+(IN SFN) 
+(B E S S ERR) 
+(IN IPFN) 
+(E S S ERR) 
+(IN SFN) 
+(S S ERR) 
+(S ERR)
+* (Efn '(x o y o z o w))
+
+(IN EFN) 
+(X O Y O Z O W) 
+(IN GFN) 
+(O Y O Z O W) 
+(IN EPFN) 
+(O Y O Z O W) 
+(IN GFN) 
+(Y O Z O W) 
+(IN EPFN) 
+(O Z O W) 
+(IN GFN) 
+(Z O W) 
+(IN EPFN) 
+(O W) 
+(IN GFN) 
+(W) 
+NIL
+* (Efn '(x o y o z w o))
+
+(IN EFN) 
+(X O Y O Z W O) 
+(IN GFN) 
+(O Y O Z W O) 
+(IN EPFN) 
+(O Y O Z W O) 
+(IN GFN) 
+(Y O Z W O) 
+(IN EPFN) 
+(O Z W O) 
+(IN GFN) 
+(Z W O) 
+(IN EPFN) 
+(W O) 
+(W O)
+* (EPfn' (o x o y o z o w))
+
+(IN EPFN) 
+(O X O Y O Z O W) 
+(IN GFN) 
+(X O Y O Z O W) 
+(IN EPFN) 
+(O Y O Z O W) 
+(IN GFN) 
+(Y O Z O W) 
+(IN EPFN) 
+(O Z O W) 
+(IN GFN) 
+(Z O W) 
+(IN EPFN) 
+(O W) 
+(IN GFN) 
+(W) 
+NIL
+* (EPfn '(x o o y o z o w))
+
+(IN EPFN) 
+(X O O Y O Z O W) 
+(X O O Y O Z O W)
+* (IPfn '(e d s s s s b))
+
+(IN IPFN) 
+(E D S S S S B) 
+(IN SFN) 
+(D S S S S B) 
+(IN LFN) 
+(S S S S B) 
+(IN LPFN) 
+(S S S B) 
+(IN LFN) 
+(S S S B) 
+(IN LPFN) 
+(S S B) 
+(IN LFN) 
+(S S B) 
+(IN LPFN) 
+(S B) 
+(IN LFN) 
+(S B) 
+(IN LPFN) 
+(B) 
+(IN SFN) 
+(B) 
+NIL
+* (T IPfn '(e d s s s b s))
+
+(IN IPFN) 
+(E D S S S B S) 
+(IN SFN) 
+(D S S S B S) 
+(IN LFN) 
+(S S S B S) 
+(IN LPFN) 
+(S S B S) 
+(IN LFN) 
+(S S B S) 
+(IN LPFN) 
+(S B S) 
+(IN LFN) 
+(S B S) 
+(IN LPFN) 
+(B S) 
+(IN SFN) 
+(B S) 
+(S)
+* [0;32m@JohnBelair [0m➜ [1;34m/workspaces/csci-330-homeworks-JohnBelair [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-03-19 01:33:14+00:00 [COMMAND_EXIT_CODE="0"]

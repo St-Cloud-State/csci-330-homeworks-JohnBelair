@@ -9,8 +9,7 @@
     (print '(in IPfn))
     (print str)
     (cond 
-        ((eql (car str)  'e) (Sfn (cdr str )))
-        (t (append (cdr str)(list 'err)))))
+        ((eql (car str)  'e) (Sfn (cdr str )))))
 
 (defun Efn (str)
     (print '(in Efn))
@@ -65,5 +64,3 @@
     (cond 
         ((and str (not (null str)) (eql (car str) 's)) (Lfn str))
         (t str)))
-
-;;working but still need to do scripting

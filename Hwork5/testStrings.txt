@@ -1,0 +1,27 @@
+*start with Ifn*
+Normal: i x o y o w d s s b e s
+Perterbed: i x o o y w d s s b e s
+
+*start with Ifn*
+Normal: i x o y s
+Perterbed: i x y o s
+
+*start with Ifn*
+Normal:  i w o z s
+Perterbed i w o s z
+
+*start with Ifn*
+Normal: i z o w d s b e s
+Perterbed: i z o w d b e s s
+
+*start with Efn*
+Normal: x o y o z o w
+Perterbed: x o y o z w o
+
+*start with EPfn*
+Normal: o x o y o z o w
+Perterbed: x o o y o z o w
+
+*start with IPfn*
+Normal: e d s s s s b
+Perterbed: e d s s s b s
