@@ -1,8 +1,8 @@
-I -> iESI' works
-I' -> eS | ε
-E -> GE' works
-E' -> oGE' | ε
-G -> x|y|z|w works
-S → s | dLb works
-L → s L' works
-L' → L | ε
+I -> iESI' 
+I' -> eS | ε 
+E -> GE' 
+E' -> oGE' | ε 
+G -> x|y|z|w 
+S → s | dLb 
+L → s L' 
+L' → L | ε 

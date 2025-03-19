@@ -4,14 +4,12 @@
     (cond 
         ((eql (car str)  'i) (IPfn (Sfn (Efn (cdr str )))))
         (t (append (cdr str)(list 'err)))))
-    
 
 (defun IPfn (str)
     (print '(in IPfn))
     (print str)
     (cond 
         ((eql (car str)  'e) (Sfn (cdr str )))
-        ;empty string
         (t (append (cdr str)(list 'err)))))
 
 (defun Efn (str)
@@ -25,10 +23,11 @@
     (print '(in EPfn))
     (print str)
     (cond 
-        ((eql (car str)  'o) (EPfn (Gfn (cdr str ))))
-        (t (append (cdr str)(list 'err)))))
-        ;empty string
-    
+        ((and str (not (null str)) (eql (car str) 'o))
+         (let ((rest (Gfn (cdr str))))
+           (if (and rest (not (null rest)))
+               (EPfn rest))))
+        (t str)))
 
 (defun Gfn (str)
     (print '(in Gfn))
@@ -64,8 +63,7 @@
     (print '(in LPfn))
     (print str)
     (cond 
-        (Lfn (cdr str))
-        ;empty string
-        (t (append str (list 'err)))))
+        ((and str (not (null str)) (eql (car str) 's)) (Lfn str))
+        (t str)))
 
-;; Cannot figure out how to handle the empty strings
+;;working but still need to do scripting
